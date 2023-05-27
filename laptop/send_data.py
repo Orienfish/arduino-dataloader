@@ -50,6 +50,9 @@ print('Init serial port {}'.format(ser.portstr))
 ############################################
 # 3. Send training data over the port
 ############################################
-ser.write(image_data)
-ser.write(b'e')
+# print(label_data)
+#ser.write(b'adbdcd')
+#ser.write(label_data)
+ser.write(label_data[:10])
+ser.write(b'eeeeeee')
 ser.close()

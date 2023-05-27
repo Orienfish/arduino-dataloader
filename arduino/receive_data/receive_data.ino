@@ -21,11 +21,16 @@
   https://www.arduino.cc/en/Tutorial/BuiltInExamples/MultiSerialMega
 */
 
+// tri.txt: train images
+// trl.txt: train labels
+// tei.txt: test images
+// tel.txt: test labels
+
 #include <SPI.h>
 #include <SD.h>
 
 File myFile;
-char filename[] = "train_images.txt";
+char filename[] = "trl.txt";
 
 void setup() {
   // initialize both serial ports:
@@ -49,7 +54,7 @@ void setup() {
     Serial.println(" exists.");
     // delete the file:
     Serial.print("Removing ");
-    Serial.print(filename);
+    Serial.println(filename);
     SD.remove(filename);
   } else {
     Serial.print(filename);
@@ -65,14 +70,17 @@ void loop() {
   // read from port 1, write to file:
   if (Serial1.available()) {
     byte inByte = Serial1.read(); 
-    // Serial.write(inByte);
+    //Serial.print("Receive: ");
+    //Serial.write(inByte);
     if (inByte == byte('e')) {
-      Serial.write(inByte);
       myFile.close();
+      //Serial.println("");
+      Serial.println("close!");
     }
     else {
       myFile.write(inByte);
-      Serial.write(inByte);
+      //Serial.print("Write: ");
+      //Serial.write(inByte);
     }
   }
 }
